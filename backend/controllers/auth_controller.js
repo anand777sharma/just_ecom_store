@@ -20,28 +20,37 @@ const register = async (req, res) => {
                 message: "User with provided email is already registered"
             })
         }
+         //check username field must be unique
         user = await User.findOne({ username });
         if (user) {
             return res.status(400).json({
                 message: "User with provided username is already registered"
             })
         }
+        // hashing password
         const hashPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, username, password: hashPassword });
+        // saving new user in the database
         const resp = await newUser.save();
+        // sending response 
         res.status(201).json({ message: "User Registered successfully", resp })
     } catch (error) {
+        // sennding error message
         res.status(500).json({ message: "An error eccured while regsitration", error })
     }
 }
 const login = async (req, res) => {
     try {
+        // destructuring req.body
         const { email, password } = req.body;
         if (!email || !password) {
+            // if email or password is missing
             return res.status(400).json({ message: "Email and password required.." })
         }
+        // if email not found in database
         let user = await User.findOne({ email });
         if (!user) {
+            // sending 400 as response
             return res.status(400).json({ message: "Email Not registered with Us yet.." })
         }
         const match = await bcrypt.compare(password, user.password);
@@ -50,6 +59,7 @@ const login = async (req, res) => {
             name: user.name,
             email: user.email
         }
+        // if password match then send token and user details
         if (match) {
             const token = await jwt.sign(payload, process.env.JWT_SECRET);
             const userdata = {
@@ -65,6 +75,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Email and password Incorrect.." })
         }
     } catch (error) {
+        // loging out error
         console.log(error);
         return res.status(500).json({ message: "Error Occured.." })
     }

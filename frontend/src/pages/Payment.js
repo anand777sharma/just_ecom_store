@@ -149,7 +149,7 @@ const Payment = () => {
                       <table class="table">
                         <tbody>
                           {cart?.map((p, i) => (
-                            <tr>
+                            <tr key={i}>
                               <th scope="row">{i + 1}</th>
                               <td><img src={`http://localhost:5000/uploads/${p.picture.split('\\')[1]}`}
                                 alt={p.name} height={60} /></td>

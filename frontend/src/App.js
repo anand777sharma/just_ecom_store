@@ -31,7 +31,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="container-fluid mt-5 pt-4">
+      <div className="container-fluid mt-5 pt-5">
         <ToastContainer style={{
           marginTop: 60
         }} />

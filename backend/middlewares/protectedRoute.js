@@ -33,10 +33,13 @@ const autheticate = async (req, res, next) => {
     }
 }
 const authorizeAdmin = (req, res, next) => {
+    // check the user's isAdmin field is true or not
     if (req.user && req.user.isAdmin) {
+            //proceed to route
       next();
     } else {
       res.status(401).send("Not authorized as an admin.");
     }
   };
+//   exporting authenticate , authorizeAdmin functions
 module.exports= {autheticate,authorizeAdmin};

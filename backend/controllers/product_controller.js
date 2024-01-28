@@ -1,7 +1,8 @@
 const ProductModel = require('../models/Product');
-
+// add product controller
 const addproduct = async (req, res) => {
   try {
+    // destructuring res.body
     const { name, description, discount, category, quantity, price } = req.body;
     const picture = req.file.path;
     if (!name || !description || !discount || !category || !quantity || !price) {
@@ -9,14 +10,16 @@ const addproduct = async (req, res) => {
         message: "All Fields are mandatory"
       })
     }
+    // if image is not present
     if (!picture) {
       return res.status(400).json({
         message: "please select product Image"
       })
     }
+    // saving the new product
     const newProduct = new ProductModel({ name, description, discount, category, quantity, price, picture });
     await newProduct.save();
-
+// sending response
     res.status(201).json({ message: "ProductAdded" })
   } catch (error) {
     console.log(error);
@@ -25,14 +28,16 @@ const addproduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
+    // getting all product data in data variable
     const data = await ProductModel.find();
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
+    // sending 500 response when error occured
     res.status(500).send({ message: "Internal Error Occured" })
   }
 }
-
+// getting one products detail using its id
 const getProductById = async (req, res) => {
   const { id } = req.params;
   try {

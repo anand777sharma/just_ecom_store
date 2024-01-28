@@ -4,6 +4,8 @@ const { createcategory,getallcategories ,deletecategorybyid, editcategory} = req
 
 const router= express.Router();
 
+// routes for different categories
+
 router.post('/createcotegory',autheticate,authorizeAdmin,createcategory)
 router.get('/getallcategories',getallcategories)
 router.put("/editcategory",autheticate,authorizeAdmin,editcategory)

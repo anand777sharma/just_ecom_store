@@ -4,13 +4,14 @@ const storage= multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'uploads/')
     },
+    // creating file name
     filename:(req,file,cb)=>{
         const uniquesuffix= Date.now()+'-'+Math.random(Math.random()*1e9);
         const fileExtention= file.originalname.split('.').pop();
         cb(null,file.fieldname+'-'+uniquesuffix+'.'+fileExtention);
     }
 })
-
+// file filtering function
 const fileFilter= (req,file,cb)=>{
     const allowedFileTypes=/jpeg|jpg|png/;
     const extname= allowedFileTypes.test(file.originalname.toLowerCase());
@@ -25,9 +26,11 @@ const fileFilter= (req,file,cb)=>{
 
 const upload= multer({
     storage:storage,
+    // making the image size limit upto 5 mb
     limits:{
         fileSize:1024*1024*5 //Allow 5 MB
     },
+    // calling here the filter function
     fileFilter:fileFilter
 })
 

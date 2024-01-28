@@ -17,7 +17,7 @@ const Navbar = () => {
         localStorage.removeItem("auth");
     }
     return (
-        <div><nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top pb-2">
+        <div><nav className="navbar navbar-expand-lg bg-primary fixed-top pb-2 pb-3">
             <div className="container-fluid">
                 <Link className="text-decoration-none border p-1 rounded-4 bg-light shadow mx-3" to="/">
                     <div className="d-flex justify-content-center align-items-center">
@@ -34,10 +34,17 @@ const Navbar = () => {
                         </div>
                     </div>
                 </Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                {/* cart button only except for the large screen */}
+                <Badge count={cart?.length} showZero size="default" className='ms-auto me-3 d-lg-none'>
+                    <Link className="btn rounded-2 p-2 shadow btn-light  fs-6 " to="/cart">
+                        <i className="fas fa-shopping-cart fa-lg"></i>
+                    </Link>
+                </Badge>
+
+                <button className="navbar-toggler my-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse " id="navbarSupportedContent">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div>
                         <ul className="navbar-nav me-auto ms-3 mb-2 mb-lg-0">
                             <li className="nav-item">
@@ -69,12 +76,12 @@ const Navbar = () => {
                         </ul>
                     </div>
 
-                    <form className="d-flex w-50 mx-auto" role="search">
-                        <input className="form-control me-2 w-100 rounded-5" type="search" placeholder="Search" aria-label="Search" />
+                    <form className="d-flex w-50 mx-auto my-3" role="search">
+                        <input className="form-control me-2 w-100 rounded-5 shadow border-0" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-transparent " style={{ margin: "3px 0px 0px -60px" }} type="submit"><i className="fas fa-search fa-lg"></i>
                         </button>
                     </form>
-                    <div className='ms-auto'>
+                    <div className='mx-auto'>
                         {
                             !auth.user ? (<>  <Link className="btn rounded-5 shadow btn-warning m-1" to="/login">
                                 Login
@@ -90,8 +97,8 @@ const Navbar = () => {
                         }
 
 
-
-                        <Badge count={cart?.length} showZero size="default" className='mx-3 '>
+                        {/* cart button only disply on the large screen */}
+                        <Badge count={cart?.length} showZero size="default" className='mx-3 d-none d-lg-inline'>
                             <Link className="btn rounded-2 p-2 shadow btn-light  fs-6 " to="/cart">
                                 <i className="fas fa-shopping-cart fa-lg"></i>
                             </Link>

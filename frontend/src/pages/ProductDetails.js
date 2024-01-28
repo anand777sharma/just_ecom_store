@@ -142,7 +142,7 @@ function ProductDetails() {
                                         &nbsp;
                                         &nbsp;
                                         <span style={{ color: "#007185", fontSize: 15 }} >
-                                            Diliver to {auth?.user?.name} - {auth?.user?.address.pincode}
+                                            Diliver to {auth?.user?.name} - {auth?.user?.address?.pincode}
                                         </span>
 
                                     </span>

@@ -3,22 +3,23 @@ const Category = require("../models/Category");
 // create category
 const createcategory = async (req, res) => {
     try {
-        console.log(req.body);
+       
         //get Data from the Requet Body
         const { categoryname } = req.body;
+
         if (!categoryname) {
             return res.status(400).json({
                 message: "All Fields are mandatory"
             })
         }
-        //check email field must be unique
+        //check category field must be unique
         let category = await Category.findOne({ categoryname });
         if (category) {
             return res.status(400).json({
                 message: "this category is already there"
             })
         }
-      
+    //   saving new category
        const newcategory = new Category({ categoryname });
         const resp = await newcategory.save();
         res.status(201).json({ message: "category created successfully", resp })

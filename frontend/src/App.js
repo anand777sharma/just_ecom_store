@@ -24,6 +24,7 @@ import AddAddress from "./pages/AddAddress";
 // import AddCategory from "./pages/admin/AddCategory";
 import AllCategory from "./pages/admin/AllCategory";
 import AllOrders from "./pages/admin/AllOrders";
+import Seeddata from "./pages/Seeddata";
 
 
 function App() {
@@ -50,7 +51,8 @@ function App() {
               <Route path="/dashboard/updateprofile" element={<EditProfile />} />
               <Route path="/dashboard/address" element={<AddAddress />} />
               <Route path="/dashboard/category" element={<AllCategory />} />
-              <Route path="/dashboard/order" element={<AllOrders />} />
+              <Route path="/dashboard/order" element={<Order />} />
+              <Route path="/dashboard/usersorder" element={<AllOrders />} />
             </Route>
             :
             <Route path="/dashboard" element={<PrivateRoute />} >
@@ -66,6 +68,7 @@ function App() {
           </Route>
 
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/seed' element={<Seeddata />} />
           <Route path='/details/:id' element={<ProductDetails />} />
         </Routes>
 

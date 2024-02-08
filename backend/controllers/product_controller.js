@@ -1,4 +1,5 @@
 const ProductModel = require('../models/Product');
+const { seedproducts, seeduser }= require('../constant/product_and_users')
 // add product controller
 const addproduct = async (req, res) => {
   try {
@@ -51,7 +52,7 @@ const getProductById = async (req, res) => {
     res.status(500).send({ message: "Internal Error Occurred" });
   }
 };
-
+// edit product
 const editProductById = async (req, res) => {
   try {
     const { name, description, price, category, quantity } = req.body;
@@ -75,7 +76,7 @@ const editProductById = async (req, res) => {
       { ...req.body },
       { new: true }
     );
-
+// saving updated product
     await product.save();
 
     res.json(product);
@@ -87,14 +88,39 @@ const editProductById = async (req, res) => {
 
 // 		/deleteProductById
 const deleteProductById = async (req, res) => {
+  // getting product id by req.params.id
   const product = await ProductModel.findById(req.params.id);
   if (product) {
+    // deleting product by product id
     await ProductModel.deleteOne({ _id: product._id });
     res.json({ message: "product removed" });
   } else {
     res.status(404);
+    // throwing error
     throw new Error("product not found.");
   }
 };
 
-module.exports = { addproduct, getAllProducts, getProductById, editProductById, deleteProductById }
+const seedproduct = async (req,res)=>{
+  try {
+    const data = await ProductModel.find();
+    res.status(200);
+    if(data.length>1){
+      return res.status(400).json({
+        message: "data base is already have products"
+      })
+    }
+    else{
+      await ProductModel.insertMany(seedproducts);
+      return res.status(200).json({
+        message: "data seeded successfully"
+      })
+    }
+    
+  } catch (error) {
+    console.log(error);
+  }
+// console.log(seedproducts);
+}
+
+module.exports = { addproduct, getAllProducts, getProductById, editProductById, deleteProductById,seedproduct }

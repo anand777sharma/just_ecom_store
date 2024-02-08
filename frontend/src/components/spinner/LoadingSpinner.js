@@ -4,6 +4,7 @@ const LoadingSpinner = () => {
   return (
     <div class="d-flex justify-content-center align-items-center">
     <div class="spinner-border" role="status">
+      {/* bootstrap spinner */}
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>

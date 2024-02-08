@@ -9,6 +9,7 @@ function Login() {
     const [user, setUser] = useState({ email: '', password: '' });
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
+    // on submit button click
     const subminHandler = async (e) => {
         e.preventDefault();
 
@@ -32,13 +33,10 @@ function Login() {
         }
     }
     return (
-        <Row className='d-flex justify-content-center mt-5 align-items-center'>
-            <Col lg={6}>
-                <CardImg src='https://images.unsplash.com/photo-1702750722257-6bc38db1267a?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    height="500"
-                    alt='Brand Image' />
-            </Col>
-            <Col lg={6}>
+        // row and colom structure
+        <Row className='d-flex justify-content-center mt-5 align-items-center h-75'>
+           
+            <Col lg={4} className=' rounded-4  p-3 shadow-lg mt-5 '>
                 <Form className='mb-3' onSubmit={subminHandler}>
                     <Form.Group className='mb-3'>
                         <Form.Control type='email'
@@ -53,6 +51,7 @@ function Login() {
                             onChange={(e) => setUser({ ...user, password: e.target.value })} />
                     </Form.Group>
                     <div className="d-grid gap-2">
+                        {/* submit button */}
                         <Button className='btn btn-secondary shadow-sm rounded-2' type='submit' >
                             Login
                         </Button>

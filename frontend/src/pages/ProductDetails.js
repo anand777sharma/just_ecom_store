@@ -36,8 +36,8 @@ function ProductDetails() {
 
                 <div className="row g-3">
                     <div className="col-lg-5">
-                        <div className="card p-4" >
-                            <img src={`http://localhost:5000/${product.picture}`} className="card-img-top py-5" alt="..." />
+                        <div className=" p-4 bg-light rounded d-flex justify-content-center align-items-center" style={{height:600}} >
+                            <img src={product.picture} className=" py-5" alt="..." style={{maxHeight:600,maxWidth:500}} />
                         </div>
                     </div>
                     <div className="col-lg-4 " >

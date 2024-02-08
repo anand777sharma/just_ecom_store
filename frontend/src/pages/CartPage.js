@@ -10,10 +10,6 @@ const CartPage = () => {
   const [auth, setAuth] = useAuth();
 
 
-  // const navigate = useNavigate();
-  // const increment = (item) => {
-  //   item.q = item.q + 1
-  // };
 
   const increment = (item) => {
     if (item.q < item.quantity) {
@@ -34,7 +30,7 @@ const CartPage = () => {
       );
       localStorage.setItem("cart", updatedCart);
     }
-    else{
+    else {
       toast.error('mo more items in the inventry');
     }
 
@@ -43,7 +39,7 @@ const CartPage = () => {
 
 
   const decrement = (item) => {
-    if (item.q >1) {
+    if (item.q > 1) {
       let updatedItem = { ...item, q: item.q - 1 };
 
       // Update the state using setCart
@@ -61,7 +57,7 @@ const CartPage = () => {
       );
       localStorage.setItem("cart", updatedCart);
     }
-    else{
+    else {
       removeCartItem(item._id)
     }
   };
@@ -110,8 +106,10 @@ const CartPage = () => {
                 <div className="card-body">
                   {cart?.map(item => (
                     <div className="row shadow rounded-4 mb-3 bg-body-tertiary">
-                      <div className="col-lg-4 bg-white p-2"> <img src={`http://localhost:5000/uploads/${item.picture.split('\\')[1]}`}
-                        alt={item.name} height={140} /></div>
+                      <div className="col-lg-4 bg-white p-2 d-flex justify-content-center">
+                        <img src={item.picture}
+                          alt={item.name} height={140} />
+                      </div>
                       <div className="col-lg-8 py-2 ps-3 ">
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text"> ₹ {item.price}</p>
@@ -138,27 +136,30 @@ const CartPage = () => {
 
             </div>
             <div className="col-lg-4">
-              <div className="card mb-2 shadow">
-                <div className="card-body">
-                  <div className="text-center ">
-                    <h2>
-                      Cart Summary
-                    </h2>
+              <div style={{ position: "sticky", top: 120 }}>
+                <div className="card mb-2 shadow" >
+                  <div className="card-body">
+                    <div className="text-center ">
+                      <h2>
+                        Cart Summary
+                      </h2>
+                    </div>
+                    <h3 className='text-center '>Subtotal({cart.length} items): ₹{totalPrice()}/-</h3>
+
                   </div>
-                  <h3 className='text-center '>Subtotal({cart.length} items): ₹{totalPrice()}/-</h3>
 
                 </div>
-
-              </div>
-              {cart.length > 0 ? (<>
-                <div className="card mb-2 shadow">
-                  <div className="card-body">
-                    <div className="d-grid gap-2">
-                      <Link className="btn btn-warning shadow-sm rounded-5" to="/payment" >Preceed to buy</Link>
+                {cart.length > 0 ? (<>
+                  <div className="card mb-2 shadow">
+                    <div className="card-body">
+                      <div className="d-grid gap-2">
+                        <Link className="btn btn-warning shadow-sm rounded-5" to="/payment" >Preceed to buy</Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>) : ('')}
+                </>) : ('')}
+              </div>
+
 
 
 

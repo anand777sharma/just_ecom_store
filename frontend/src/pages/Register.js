@@ -22,12 +22,8 @@ function Register() {
     }
     return (
         <Row className='d-flex justify-content-center mt-5 align-items-center'>
-            <Col lg={6}>
-                <CardImg src='https://images.unsplash.com/photo-1702750722257-6bc38db1267a?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    height="500"
-                    alt='Brand Image' />
-            </Col>
-            <Col lg={6}>
+           
+            <Col lg={4} className=' rounded-4  p-3 shadow-lg'>
                 <Form className='mb-3' onSubmit={submitHandler}>
                     <Form.Group className='mb-3'>
                         <Form.Control type='text'

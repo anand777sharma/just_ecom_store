@@ -20,6 +20,7 @@ app.use('/api/user',require('./routes/user_routes'));
 app.use('/api/product',require('./routes/product_routes'));
 app.use('/api/payment',require('./routes/payment_routes'));
 app.use('/api/category',require('./routes/category_routes'));
+app.use('/api/order',require('./routes/order_routes'));
 
 // listening port using env folder to store port
 app.listen(process.env.PORT,()=>{

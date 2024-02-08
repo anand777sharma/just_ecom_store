@@ -27,8 +27,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // location: String,
     dateOfBirth: String
+
 }, { timestamps: true })
 // converting schema to model and exporting
 module.exports = mongoose.model('User', userSchema);

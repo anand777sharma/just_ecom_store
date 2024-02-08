@@ -38,6 +38,7 @@ const AllProductList = () => {
             <div className="col-lg-3 mt-3">
                 <div className="d-grid gap-2">
                     <Link className="btn btn-light shadow" to = "/dashboard">My Profile</Link>
+                    <Link className="btn btn-light shadow" to = "/dashboard/order"> My Orders</Link>
                     <Link className="btn btn-light shadow" to = "/dashboard/order"> Manage Orders</Link>
                     <Link className="btn btn-light shadow" to = "/dashboard/allproductslist">Manange Products</Link>
                     <Link className="btn btn-light shadow" to = "/dashboard/users">Manage Users</Link>
@@ -83,7 +84,7 @@ const AllProductList = () => {
                                 <td>{item.category}</td>
                                 <td>{item.quantity}</td>
                                 <td>₹{item.price}</td>
-                                <td><img src={`http://localhost:5000/uploads/${item.picture.split('\\')[1]}`}
+                                <td><img src={item.picture}
                                     height="100" alt={item.name} /></td>
                                 <td>
                                     <button className='btn btn-danger rounded-5 shadow m-1 ' onClick={() => deleteProduct(item._id)}>delete</button>

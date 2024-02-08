@@ -4,7 +4,7 @@ const { getallusers ,deleteUserById, editprofile} = require('../controllers/user
 
 
 const router= express.Router();
-
+// user related route
 router.get('/profile',autheticate,(req,res)=>{
     res.send(req.user);//we will pass the user object to access
 });
@@ -12,7 +12,7 @@ router.get('/profile',autheticate,(req,res)=>{
 router.get('/isadmin',autheticate,authorizeAdmin,(req,res)=>{
     res.send(req.user);//we will pass the admin user object to access
 });
-
+// getall user only for admin
 router.get('/getalluser',autheticate,authorizeAdmin,getallusers)
 router.put("/profile",autheticate,editprofile)
 router.delete('/deleteuserbyid/:id',autheticate,authorizeAdmin ,deleteUserById);

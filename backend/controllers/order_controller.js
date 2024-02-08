@@ -1,46 +1,62 @@
-const OrderModel = require("../models/Order");
-// this will create order when purchase is done by user
-const addOrderByUserId = async (req, res) => {
+const orderModel = require("../models/Order");
+
+
+const getOrdersController = async (req, res) => {
   try {
-    // req data
-    const { customerid, amount, address, products } = req.body;
-
-    const newOrder = new OrderModel({ customerid, amount, address, products });
-    await newOrder.save();
-
-    res.status(201).json({ message: "OrderAdded Successfully" })
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products")
+      .populate("buyer", "name");
+    res.json(orders);
   } catch (error) {
     console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
   }
-}
-
-const getAllOrdersByUserId = async (req, res) => {
+};
+//orders
+const getAllOrdersController = async (req, res) => {
   try {
-    // getting customer id from params
-    const customerid = req.params.customerid;
-
-    // Fetch all orders for the given customerid from the database
-    const orders = await OrderModel.find({ customerid });
-
-    res.status(200).json({ orders });
+    const orders = await orderModel
+      .find({})
+      .populate("products")
+      .populate("buyer", "name")
+      // .sort({ createdAt: "-1" });
+    res.json(orders);
   } catch (error) {
-    // sending and console loging erroe
-    console.error('Error fetching orders:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
   }
 };
 
-const getallorder = async (req, res) => {
+//order status
+const orderStatusController = async (req, res) => {
   try {
-// getting all orders for the admin
-    const data = await OrderModel.find();
-    res.status(200).send(data);
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Internal Error Occured" })
+    res.status(500).send({
+      success: false,
+      message: "Error While Updateing Order",
+      error,
+    });
   }
-}
+};
 
 module.exports = {
-  addOrderByUserId, getAllOrdersByUserId, getallorder
+  getOrdersController, getAllOrdersController, orderStatusController
 }

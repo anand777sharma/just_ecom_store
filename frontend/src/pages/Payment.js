@@ -26,7 +26,7 @@ const Payment = () => {
     try {
       let total = 0;
       cart?.map((item) => {
-        total = total + item.price*item.q;
+        total = total + item.price * item.q;
       })
       return total;
     } catch (error) {
@@ -151,7 +151,7 @@ const Payment = () => {
                           {cart?.map((p, i) => (
                             <tr key={i}>
                               <th scope="row">{i + 1}</th>
-                              <td><img src={`http://localhost:5000/uploads/${p.picture.split('\\')[1]}`}
+                              <td><img src={p.picture}
                                 alt={p.name} height={60} /></td>
                               <td>{p.name} <br />{p.discription}</td>
                               <td>Quantity({p?.q})</td>
@@ -166,44 +166,6 @@ const Payment = () => {
                 </div>
               </div>
 
-              {/* <div className="text-center card p-3">
-                {auth?.user?.address.pincode ? (
-                  <>
-                    <div className="mb-3">
-                      <h4>Current Address</h4>
-                      <h5>{auth?.user?.address.pincode}</h5>
-                      <button
-                        className="btn btn-outline-warning"
-                        onClick={() => navigate("/dashboard/updateprofile")}
-                      >
-                        Update Address
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <div className="mb-3">
-                    {auth?.token ? (
-                      <button
-                        className="btn btn-outline-warning"
-                        onClick={() => navigate("/dashboard/updateprofile")}
-                      >
-                        Update Address
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-outline-warning"
-                        onClick={() =>
-                          navigate("/login", {
-                            state: "/cart",
-                          })
-                        }
-                      >
-                        Plase Login to checkout
-                      </button>
-                    )}
-                  </div>
-                )}
-              </div> */}
               {/* dropin  */}
               <div className="mt-2 text-center card p-3 shadow rounded-3">
                 {!clientToken || !cart?.length ?
@@ -227,70 +189,69 @@ const Payment = () => {
                           First fill the Address
                         </p>
                       </>) : ('')}
-                      {/* {(instance==="")? (<>
-                        <p className="text-danger">
-                          First fill the Address
-                        </p>
-                      </>) : ('')} */}
+                     
                     </>
                   )}
               </div>
               {/* dropin  */}
             </div>
             <div className="col-lg-4">
-              <div className="card shadow rounded-3">
-                <div className="card-body">
-                  <p className="h4">
-                    Order Summary
-                  </p>
-                  <hr />
-                  <table class="table">
+              <div style={{ position: "sticky", top: 100 }}>
+                <div className="card shadow rounded-3">
+                  <div className="card-body">
+                    <p className="h4">
+                      Order Summary
+                    </p>
+                    <hr />
+                    <table class="table">
 
-                    <tbody>
-                      <tr className=''>
-                        <td>items:</td>
-                        <td>₹ {totalPrice()}</td>
-                      </tr>
-                      <tr className='border-dark'>
-                        <td>Delivery:</td>
-                        <td>₹ 89</td>
-                      </tr>
-                      <tr className='fs-4 fw-bold border-dark' >
-                        <td style={{ color: "#cc0c39" }}>OrderTotal:</td>
-                        <td style={{ color: "#cc0c39" }}>₹ {totalPrice() + 89}</td>
-                      </tr>
+                      <tbody>
+                        <tr className=''>
+                          <td>items:</td>
+                          <td>₹ {totalPrice()}</td>
+                        </tr>
+                        <tr className='border-dark'>
+                          <td>Delivery:</td>
+                          <td>₹ 89</td>
+                        </tr>
+                        <tr className='fs-4 fw-bold border-dark' >
+                          <td style={{ color: "#cc0c39" }}>OrderTotal:</td>
+                          <td style={{ color: "#cc0c39" }}>₹ {totalPrice() + 89}</td>
+                        </tr>
 
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
+                {/* dropin  */}
+                <div className="mt-2 text-center card p-3 shadow rounded-3">
+                  {!clientToken || !cart?.length ?
+                    (
+                      <>
+                        <LoadingSpinner />
+                      </>
+                    )
+                    :
+                    (
+                      <>
+                        <button
+                          className="btn btn-warning rounded-5 shadow"
+                          onClick={handlePayment}
+                          disabled={loading || !instance || !auth?.user?.address?.pincode || !auth?.user?.address?.area || !auth?.user?.address?.buildingnameno || !auth?.user?.address?.city || !auth?.user?.address?.state || !auth?.user?.address?.landmark}
+                        >
+                          {loading ? "Processing ...." : "Make Payment"}
+                        </button>
+                        {!auth?.user?.address?.pincode || !auth?.user?.address?.area || !auth?.user?.address?.buildingnameno || !auth?.user?.address?.city || !auth?.user?.address?.state || !auth?.user?.address?.landmark ? (<>
+                          <p className="text-danger">
+                            First fill the Address
+                          </p>
+                        </>) : ('')}
+                      </>
+                    )}
+                </div>
+                {/* dropin  */}
               </div>
-              {/* dropin  */}
-              <div className="mt-2 text-center card p-3 shadow rounded-3">
-                {!clientToken || !cart?.length ?
-                  (
-                    <>
-                      <LoadingSpinner />
-                    </>
-                  )
-                  :
-                  (
-                    <>
-                      <button
-                        className="btn btn-warning rounded-5 shadow"
-                        onClick={handlePayment}
-                        disabled={loading || !instance || !auth?.user?.address?.pincode || !auth?.user?.address?.area || !auth?.user?.address?.buildingnameno || !auth?.user?.address?.city || !auth?.user?.address?.state || !auth?.user?.address?.landmark}
-                      >
-                        {loading ? "Processing ...." : "Make Payment"}
-                      </button>
-                      {!auth?.user?.address?.pincode || !auth?.user?.address?.area || !auth?.user?.address?.buildingnameno || !auth?.user?.address?.city || !auth?.user?.address?.state || !auth?.user?.address?.landmark ? (<>
-                        <p className="text-danger">
-                          First fill the Address
-                        </p>
-                      </>) : ('')}
-                    </>
-                  )}
-              </div>
-              {/* dropin  */}
+
 
             </div>
           </div>

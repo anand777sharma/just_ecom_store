@@ -1,13 +1,16 @@
-const express= require('express');
-const { getAllOrdersByUserId, addOrderByUserId,getallorder } = require('../controllers/order_controller');
-const {autheticate,authorizeAdmin} = require('../middlewares/protectedRoute');
+const express = require('express');
+const { getOrdersController, getAllOrdersController, orderStatusController } = require('../controllers/order_controller');
+const { autheticate, authorizeAdmin } = require('../middlewares/protectedRoute');
 
-const router= express.Router();
+const router = express.Router();
 
-router.post('/getAllOrdersByUserId/:customerid',autheticate,getAllOrdersByUserId);
+//orders
+router.get("/orders", autheticate, getOrdersController);
 
-router.post('/addOrderByUserId',autheticate,addOrderByUserId);
+//all orders
+router.get("/all-orders", autheticate, authorizeAdmin, getAllOrdersController);
 
-router.get('/getallorder',getallorder)
- 
-module.exports=router;
+// order status update
+router.put("/order-status/:orderId", autheticate, authorizeAdmin, orderStatusController)
+
+module.exports = router;

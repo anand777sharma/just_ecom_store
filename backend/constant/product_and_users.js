@@ -1,3 +1,4 @@
+
 const seedproducts = [
     {
         name: "ComfortStride Sneakers",
@@ -443,5 +444,32 @@ const seedproducts = [
 
 ]
 
-const seeduser = {}
-module.exports = { seedproducts, seeduser }
+
+    
+
+   
+
+    const seedcategory = [
+        {
+            categoryname: "footware",
+
+        },
+        {
+            categoryname: "Watch",
+
+        },
+        {
+            categoryname: "Men",
+
+        },
+        {
+            categoryname: "Women",
+
+        },
+        {
+            categoryname: "Kids",
+
+        },
+
+    ]
+    module.exports = { seedproducts, seedcategory }

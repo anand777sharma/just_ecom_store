@@ -1,11 +1,13 @@
 const ProductModel = require('../models/Product');
-const { seedproducts, seeduser }= require('../constant/product_and_users')
+const UserModel= require('../models/User')
+const bcrypt = require('bcrypt')
+const CategoryModel= require('../models/Category')
+const { seedproducts,seedcategory }= require('../constant/product_and_users')
 // add product controller
 const addproduct = async (req, res) => {
   try {
     // destructuring res.body
-    const { name, description, discount, category, quantity, price } = req.body;
-    const picture = req.file.path;
+    const { name, description, discount, category, quantity, price,picture } = req.body;
     if (!name || !description || !discount || !category || !quantity || !price) {
       return res.status(400).json({
         message: "All Fields are mandatory"
@@ -112,6 +114,42 @@ const seedproduct = async (req,res)=>{
     }
     else{
       await ProductModel.insertMany(seedproducts);
+      const hashPassword1 = await bcrypt.hash("test", 10);
+      const hashPassword2 = await bcrypt.hash("test", 10);
+      const  seeduser = [
+        {
+            name: "Rahul Verma",
+            username: "Rahul476",
+            email: "admin@admin.com",
+            address: {
+                pincode: "856217",
+                buildingnameno: "526/27",
+                area: "ram nagar",
+                landmark: "pal hotel",
+                city: "Lucknow",
+                state: "UP"
+            },
+            password: hashPassword1, 
+            isAdmin: true
+        },
+        {
+            name: "Vinay Kesri",
+            username: "kasarivinay04",
+            email: "user@user.com",
+            address: {
+                pincode: "856217",
+                buildingnameno: "35/07",
+                area: "ram nagar",
+                landmark: "pal hotel",
+                city: "Lucknow",
+                state: "UP"
+            },
+            password: hashPassword2,
+            isAdmin: false
+        }
+    ]
+      await UserModel.insertMany(seeduser);
+      await CategoryModel.insertMany(seedcategory);
       return res.status(200).json({
         message: "data seeded successfully"
       })
@@ -120,7 +158,7 @@ const seedproduct = async (req,res)=>{
   } catch (error) {
     console.log(error);
   }
-// console.log(seedproducts);
+
 }
 
 module.exports = { addproduct, getAllProducts, getProductById, editProductById, deleteProductById,seedproduct }

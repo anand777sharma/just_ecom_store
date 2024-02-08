@@ -3,10 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
 function AddProduct() {
-    const [auth] = useAuth()
-    const [product, setProduct] = useState({ name: '', description: '', discount: '', category: '', quantity: 10, price: 340 });
+    const [auth] = useAuth();
+    const [image, setImage] = useState({ preview: '', data: '' });
+    const [product, setProduct] = useState({ name: '', description: '', discount: '', category: '', quantity: 10, price: 340, picture: '' });
     const [categories, setCategories] = useState([]);
+    let url = '';
+    // Function to handle file selection
+    const handleFileSelect = (e) => {
+        const img = {
+            preview: URL.createObjectURL(e.target.files[0]), // Create preview URL for selected image
+            data: e.target.files[0] // Store selected image file object
+        };
+        setImage(img); // Update image state with selected image information
+    };
 
+    // Function to handle image upload to server
+    const handleImgUpload = async () => {
+        // Create FormData object to send file data to server
+        let formData = new FormData();
+        formData.append('file', image.data); // Append selected image file to FormData
+
+        // Send POST request to server to upload image
+        const response = await axios.post(`http://localhost:5000/api/file/uploadFile`, formData);
+        return response; // Return response from server
+    };
+
+
+
+    // featching category data
     const fetchData = async () => {
         try {
             const resp = await axios.get('http://localhost:5000/api/category/getallcategories', {
@@ -24,6 +48,13 @@ function AddProduct() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        if (image.data !== '') {
+            // If an image is selected, upload it to the server
+            const imgRes = await handleImgUpload();
+            url = "http://localhost:5000/api/file/files/" + imgRes.data.fileName; // Construct image URL
+        }
+
         const formData = new FormData();
         formData.append('name', product.name);
         formData.append('description', product.description);
@@ -31,7 +62,7 @@ function AddProduct() {
         formData.append('category', product.category);
         formData.append('quantity', product.quantity);
         formData.append('price', product.price);
-        formData.append('picture', product.picture);
+        formData.append('picture', url);
 
         try {
             await axios.post('http://localhost:5000/api/product/addproduct', formData, {
@@ -40,6 +71,8 @@ function AddProduct() {
                 }
             })
             toast.success('Product Added');
+            setProduct({ name: '', description: '', discount: '', category: '', quantity: 10, price: 340, picture: '' })
+
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
@@ -54,17 +87,20 @@ function AddProduct() {
         <form onSubmit={submitHandler}>
             <label className="form-label">Image</label>
             <input type='file' className='form-control mb-3'
-                onChange={(e) => { setProduct({ ...product, picture: e.target.files[0] }) }} />
+                onChange={handleFileSelect} />
+
+            <img src={image.preview} className="text-center mb-3 mx-auto" style={{height:200}} alt={image.data} /> <br/>
+
+
             <label className="form-label">Name of Product</label>
             <input type='text' className='form-control mb-3' placeholder='Name of the Product'
                 value={product.name} onChange={(e) => setProduct({ ...product, name: e.target.value })} />
+
             <label className="form-label">Description of the product</label>
             <textarea type='text' className='form-control mb-3' placeholder='description of the Product'
                 value={product.description} onChange={(e) => setProduct({ ...product, description: e.target.value })} />
-            <label className="form-label">discount on product</label>
-            {/* <input type='text' className='form-control mt-3' placeholder='discount of the Product'
-                value={product.discount} onChange={(e) => setProduct({ ...product, discount: e.target.value })} /> */}
 
+            <label className="form-label">discount on product</label>
             <select className="form-select mb-3" aria-label="Default select example" onChange={(e) => setProduct({ ...product, discount: e.target.value })} >
                 <option selected>--SELECT DISCOUNT--</option>
                 <option value="10%">10%</option>
@@ -78,7 +114,7 @@ function AddProduct() {
                 <option value="90%">90%</option>
             </select>
             <label className="form-label">Category of the Product</label>
-           
+
             <select className="form-select mb-3" aria-label="Default select example" onChange={(e) => setProduct({ ...product, category: e.target.value })} >
 
                 <option selected>--SELECT CATEGORY--</option>

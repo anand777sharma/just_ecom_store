@@ -37,7 +37,9 @@ function EditProduct() {
         }
     }
 
-    return (<div className='container'>
+    return (
+    // edit product
+    <div className='container'>
         <div className="text-center text-secondary fw-bold display-5 mb-5">
             Edit Product
         </div>

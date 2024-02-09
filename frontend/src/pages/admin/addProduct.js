@@ -80,7 +80,10 @@ function AddProduct() {
         }
     }
 
-    return (<div className='container'>
+    return (
+    // add product component
+    
+    <div className='container'>
         <div className="mb-3 mt-3 text-center text-secondary display-6 fw-bold">
             Add Products
         </div>

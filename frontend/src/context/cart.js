@@ -15,6 +15,7 @@ const Cartprovider = ({children})=>{
         
 
     return(
+        // cart context
         <CartContext.Provider value={[cart,setCart]}>
             {children}
         </CartContext.Provider>

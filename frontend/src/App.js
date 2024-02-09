@@ -30,6 +30,7 @@ import Seeddata from "./pages/Seeddata";
 function App() {
   const [auth] = useAuth()
   return (
+    // different routes for different components
     <Router>
       <Navbar />
       <div className="container-fluid mt-5 pt-5">

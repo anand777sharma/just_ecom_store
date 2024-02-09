@@ -11,6 +11,7 @@ function Dashboard() {
             navigate('/login');
     }, [])
     return (
+        // Dashboard
         <div className="container-fluid">
             <h1 className='text-center mb-3 mt-2'>
                 My Dashboard

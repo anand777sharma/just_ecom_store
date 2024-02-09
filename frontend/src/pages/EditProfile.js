@@ -53,6 +53,7 @@ function EditProfile() {
         }
     }
     return (
+        // Edit profile
         <div className="container">
             <div className="my-3 text-center">
                 <h2>

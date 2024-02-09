@@ -17,8 +17,10 @@ const Navbar = () => {
         localStorage.removeItem("auth");
     }
     return (
+        // navbar
         <div><nav className="navbar navbar-expand-lg bg-primary fixed-top pb-2 pb-3">
             <div className="container-fluid">
+                {/* logo */}
                 <Link className="text-decoration-none border p-1 rounded-4 bg-light shadow mx-3" to="/">
                     <div className="d-flex justify-content-center align-items-center">
                         <div className='pe-2'>

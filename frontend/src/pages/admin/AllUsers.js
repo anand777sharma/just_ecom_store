@@ -33,7 +33,7 @@ const AllUsers = () => {
     }, [deleteUser])
     console.log({ user: users });
     return (
-
+// all users list
         <div className="container-fluid">
             <h3 className='text-center my-4 py-2 shadow bg-light rounded-4'>
                 Admin Dashboard

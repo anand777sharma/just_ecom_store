@@ -89,6 +89,7 @@ const CartPage = () => {
   }
 
   return (
+    // cart page
     <div className='container'>
       <div className="card">
         <div className="card-body">

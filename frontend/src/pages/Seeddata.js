@@ -31,6 +31,7 @@ const Seeddata = () => {
     }, [count, navigate]);
 
     return (
+        // seeding data
         <div>
             <div className="d-flex flex-column justify-content-center align-items-center"
                 style={{ height: "90vh" }}>

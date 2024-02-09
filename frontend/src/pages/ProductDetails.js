@@ -29,6 +29,7 @@ function ProductDetails() {
     console.log(product);
 
     return (
+        // product Details
         <div className='container'>
             <h3>Product details</h3>
 

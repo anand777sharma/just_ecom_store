@@ -15,6 +15,7 @@ const Wishprovider = ({children})=>{
         
 
     return(
+        // wishlist context
         <WishContext.Provider value={[wish,setWish]}>
             {children}
         </WishContext.Provider>

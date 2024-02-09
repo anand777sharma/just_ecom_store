@@ -23,6 +23,7 @@ const checkAuth = async()=>{
 if(auth?.token) checkAuth();
 
 },[auth?.token])
+
   return ok? <Outlet/>:<BackToLoginSpinner/> ;
 }
 export default PrivateRoute;

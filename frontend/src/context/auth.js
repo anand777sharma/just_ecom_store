@@ -20,6 +20,7 @@ if(data){
 }, [])
 
     return(
+        // auth context
         <AuthContext.Provider value={[auth,setAuth]}>
             {children}
         </AuthContext.Provider>

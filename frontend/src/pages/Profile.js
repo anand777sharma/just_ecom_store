@@ -7,6 +7,7 @@ function Profile() {
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     return (
+        // profile 
         <div className='card'>
             <div className="card-body">
                 <div className="row ">

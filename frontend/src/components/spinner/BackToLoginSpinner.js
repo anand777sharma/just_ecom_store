@@ -19,6 +19,7 @@ const BackToLoginSpinner = () => {
         return () => clearInterval(interval);
     }, [count, navigate]);
     return (
+        
         <div>
             <div className="d-flex flex-column justify-content-center align-items-center"
                 style={{ height: "90vh" }}>

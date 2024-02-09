@@ -25,6 +25,8 @@ function AddCategory() {
         }
     }
     return (
+
+        // add category component
         <div className='d-flex justify-content-center mt-3 align-items-center'>
 
             <Form className='mb-3' onSubmit={subminHandler}>

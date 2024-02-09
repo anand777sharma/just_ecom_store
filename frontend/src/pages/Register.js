@@ -21,6 +21,7 @@ function Register() {
         }
     }
     return (
+        // register
         <Row className='d-flex justify-content-center mt-5 align-items-center'>
            
             <Col lg={4} className=' rounded-4  p-3 shadow-lg'>
